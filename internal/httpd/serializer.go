@@ -1,3 +1,5 @@
+// This file have the serialization logic
+
 package httpd
 
 import (

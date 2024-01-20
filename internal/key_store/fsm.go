@@ -8,8 +8,17 @@ import (
 	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
 )
 
+// KeyStoreFSM implements the raft.FSM interface for the KeyStore
+//
+// It is basically a KeyStore, but it's FSM implementation is extracted out for maintainablity purpose.
 type KeyStoreFSM KeyStore
 
+// Apply is called once a log entry is committed by a majority of the cluster.
+//
+// Apply should apply the log to the FSM. Apply must be deterministic and
+// produce the same result on all peers in the cluster.
+//
+// The returned value is returned to the client as the ApplyFuture.Response.
 func (store *KeyStoreFSM) Apply(log *raft_lib.Log) interface{} {
 
 	cmd, err := GetCommand(log.Data)
@@ -28,6 +37,8 @@ func (store *KeyStoreFSM) Apply(log *raft_lib.Log) interface{} {
 	return nil
 }
 
+// Implements Snapshot, this helps raft to not have unbounded logs,
+// And data can be recovered later on
 func (store *KeyStoreFSM) Snapshot() (raft_lib.FSMSnapshot, error) {
 	store.rw_lock.RLock()
 	defer store.rw_lock.RUnlock()
@@ -42,6 +53,7 @@ func (store *KeyStoreFSM) Snapshot() (raft_lib.FSMSnapshot, error) {
 	return snap, nil
 }
 
+// Implements Restore, It will restore the snapshopt back to the KeyStore
 func (store *KeyStoreFSM) Restore(snapshot io.ReadCloser) error {
 	store.rw_lock.Lock()
 	defer store.rw_lock.Unlock()

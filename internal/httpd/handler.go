@@ -7,19 +7,27 @@ import (
 	fh_processor "github.com/sarthakvk/hex-app/internal/file_processing"
 )
 
+// Handler for the File upload
+// It takes in a file from user, validats the request
+// then it passes the file to the file processor
 func FileUploadHandler(w http.ResponseWriter, req *http.Request) {
-	fileProcessor := fh_processor.NewFileHeaderProcessor()
-	fileName, fileSize, err := ValidateFileUpload(req, fileProcessor)
+	valid_data, err := ValidateFileUpload(req)
 
 	if err != nil {
 		SendResponse(w, http.StatusBadRequest, err.Error())
 	}
 
-	Keystore.Set(fileName, fileSize)
+	fileProcessor := fh_processor.NewFileHeaderProcessor(Keystore)
+	err = fileProcessor.ProcessFile(valid_data)
+
+	if err != nil {
+		SendResponse(w, http.StatusInternalServerError, err.Error())
+	}
 
 	SendResponse(w, http.StatusOK, "file processed")
 }
 
+// Handler requests for adding more nodes to the cluster
 func AddReplicaHandler(w http.ResponseWriter, req *http.Request) {
 	validated_data, err := ValidateReplicationRequest(req)
 
@@ -34,6 +42,8 @@ func AddReplicaHandler(w http.ResponseWriter, req *http.Request) {
 	SendResponse(w, http.StatusOK, "Replication started")
 }
 
+// Handler for the KeyStore Commands, this is used to perform
+// Operations on our key store
 func HandleKeyStoreCommand(w http.ResponseWriter, req *http.Request) {
 
 	cmd, err := ValidateKeyStoreCommand(req)

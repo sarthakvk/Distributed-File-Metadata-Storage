@@ -14,6 +14,7 @@ var (
 	httpd_once   sync.Once
 )
 
+// SingelTon logger for the raft cluster
 func GetLogger() hclog.Logger {
 	once.Do(func() {
 		opts := &hclog.LoggerOptions{
@@ -26,6 +27,7 @@ func GetLogger() hclog.Logger {
 	return logger
 }
 
+// SingleTon logger for the httpd
 func GetHttpdLogger() hclog.Logger {
 	httpd_once.Do(func() {
 		opts := &hclog.LoggerOptions{

@@ -3,17 +3,25 @@ package fileheaderprocessor
 import (
 	"fmt"
 	"mime/multipart"
+
+	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
 )
 
-type FileHeaderProcessor int
+// FileHeaderProcessor: It's an implementation to process file
+type FileHeaderProcessor struct {
+	store ks_adapter.AbstractKeyStore
+}
 
-func (f FileHeaderProcessor) GetFileNameAndSize(fileHeader multipart.FileHeader) (string, string) {
+// Implements file processing logic
+func (f *FileHeaderProcessor) ProcessFile(fileHeader *multipart.FileHeader) error {
 	fileName := fileHeader.Filename
 	filseSize := fmt.Sprintf("%d", fileHeader.Size)
 
-	return fileName, filseSize
+	err := f.store.Set(fileName, filseSize)
+
+	return err
 }
 
-func NewFileHeaderProcessor() FileHeaderProcessor {
-	return (FileHeaderProcessor)(1)
+func NewFileHeaderProcessor(store ks_adapter.AbstractKeyStore) *FileHeaderProcessor {
+	return &FileHeaderProcessor{store: store}
 }

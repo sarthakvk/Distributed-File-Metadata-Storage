@@ -11,10 +11,12 @@ import (
 
 var logger = logging.GetLogger()
 
+// RedisBacked holds the connection to the redis server
 type RedisBackend struct {
 	rdb *redis.Client
 }
 
+// Creates a new redis backend
 func NewRedisBackend() *RedisBackend {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -52,6 +54,7 @@ func (rb *RedisBackend) Delete(key string) error {
 	return nil
 }
 
+// Set sets the value with the key inside redis
 func (r *RedisBackend) Set(key, value string) error {
 	var ctx = context.Background()
 	_, err := r.rdb.Set(ctx, key, value, time.Duration(0)).Result()
@@ -63,6 +66,7 @@ func (r *RedisBackend) Set(key, value string) error {
 	return err
 }
 
+// Snapshot, it implements Snapshot to support backup
 func (r *RedisBackend) Snapshot() map[string]string {
 	data := make(map[string]string)
 	keys, err := r.rdb.Keys(context.Background(), "*").Result()
@@ -83,6 +87,7 @@ func (r *RedisBackend) Snapshot() map[string]string {
 	return data
 }
 
+// It implements Restore, so the node can recover from failures
 func (r *RedisBackend) Restore(data map[string]string) error {
 
 	logger.Debug("[START RESTORE] read all message from snapshot")

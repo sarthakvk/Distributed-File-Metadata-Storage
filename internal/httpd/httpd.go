@@ -1,3 +1,6 @@
+// This file defines the global level objects for the httpd service
+// It is also intended to store configurations for the httpd service
+
 package httpd
 
 import (

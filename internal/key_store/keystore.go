@@ -57,6 +57,7 @@ func (store *KeyStore) Replicate(nodeID, address string) {
 	go store.raft.AddVoter(nodeID, address)
 }
 
+// Get the Value from data backend
 func (store *KeyStore) Get(key string) (string, bool) {
 	store.rw_lock.Lock()
 	defer store.rw_lock.Unlock()
@@ -66,6 +67,9 @@ func (store *KeyStore) Get(key string) (string, bool) {
 	return value, ok
 }
 
+// Delete, deletes the given key in highly consistent manner
+//
+// It must be called through leader otherwise it will return an error
 func (store *KeyStore) Delete(key string) error {
 	if !store.raft.IsLeader() {
 		logger.Error("key deletion request denied, not a leader")
@@ -102,6 +106,9 @@ func (store *KeyStore) Delete(key string) error {
 
 }
 
+// Set, sets the given key with value in highly consistent manner
+//
+// It must be called through leader otherwise it will return an error
 func (store *KeyStore) Set(key, value string) error {
 	if !store.raft.IsLeader() {
 		logger.Error("key deletion request denied, Not a leader!")
@@ -139,6 +146,10 @@ func (store *KeyStore) Set(key, value string) error {
 	}
 }
 
+// GetOrCreate, gets the given key or creates incase it doesn't exist in highly consistent manner
+//
+// It must be called through leader otherwise it will return an error
+// returns: created, value, error
 func (store *KeyStore) GetOrCreate(key, value string) (bool, string, error) {
 	created := false
 	val, ok := store.Get(key)

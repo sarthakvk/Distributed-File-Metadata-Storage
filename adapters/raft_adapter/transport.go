@@ -18,6 +18,8 @@ func SplitHostPort(address string) (string, string) {
 	return host, port
 }
 
+// Creates a Transport, used to communicate with other nodes inside a cluster
+// If it faces errors while doing, it will panic
 func NewTransport(address string) *raft_lib.NetworkTransport {
 	maxPool := 5
 	timeout := time.Duration(time.Duration.Milliseconds(100))

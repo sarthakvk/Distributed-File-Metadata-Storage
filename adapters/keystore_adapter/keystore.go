@@ -1,5 +1,7 @@
 package keystore_adapter
 
+// AbstractKeyStore define the interface which can
+// be used as a key-value pair storage
 type AbstractKeyStore interface {
 	Get(key string) (string, bool)
 	Set(key, value string) error

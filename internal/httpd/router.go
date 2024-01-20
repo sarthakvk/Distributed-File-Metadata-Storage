@@ -1,3 +1,5 @@
+// This file defines the routes in a slice for the applications, the design is inspired from Djnago
+
 package httpd
 
 import "net/http"

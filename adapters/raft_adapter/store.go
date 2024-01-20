@@ -18,6 +18,7 @@ var (
 	SnapshotStore, _ = raft_lib.NewFileSnapshotStore(SnapshotStoreBaseDir, 3, nil)
 )
 
+// Stable store is used intenally by Raft
 func NewStableStore() *raftboltdb.BoltStore {
 	store, err := raftboltdb.NewBoltStore(StableStoreFilePath)
 
@@ -29,6 +30,7 @@ func NewStableStore() *raftboltdb.BoltStore {
 	return nil
 }
 
+// LogStore is used by Raft to record log entries
 func NewLogStore() *raftboltdb.BoltStore {
 	store, err := raftboltdb.NewBoltStore(LogStoreFilePath)
 

@@ -7,6 +7,7 @@ import (
 	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
 )
 
+// GetCommand: creates an Command object from raw byte data
 func GetCommand(data []byte) (*ks_adapter.Command, error) {
 	var cmd ks_adapter.Command
 	err := json.Unmarshal(data, &cmd)
@@ -25,6 +26,7 @@ func GetCommand(data []byte) (*ks_adapter.Command, error) {
 	}
 }
 
+// getRawCommand reverses the function of GetCommand
 func getRawCommand(cmd ks_adapter.Command) ([]byte, error) {
 	raw_cmd, err := json.Marshal(cmd)
 

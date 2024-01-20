@@ -3,10 +3,10 @@ package httpd
 import (
 	"encoding/json"
 	"errors"
+	"mime/multipart"
 	"net/http"
 	"strings"
 
-	fileprocessing "github.com/sarthakvk/hex-app/adapters/file_processing"
 	key_store "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
 )
 
@@ -48,42 +48,38 @@ func ValidateReplicationRequest(request *http.Request) (*ReplicationRequest, err
 	return &req, nil
 }
 
-func ValidateFileUpload(request *http.Request, fileProcessor fileprocessing.FileProcessor) (string, string, error) {
+func ValidateFileUpload(request *http.Request) (*multipart.FileHeader, error) {
 	// Check if the request is a multipart form (indicating file upload)
 	if request.Method != http.MethodPost || !strings.HasPrefix(request.Header.Get("Content-Type"), "multipart/form-data") {
 		err := errors.New("invalid request. Please send a file")
-		return "", "", err
+		return nil, err
 	}
 
 	// Parse the form to extract file
 	err := request.ParseMultipartForm(10 << 20) // 10 MB limit for the entire form
 	if err != nil {
-		return "", "", err
+		return nil, err
 	}
 
 	// Check if the request contains any files
 	if request.MultipartForm == nil || len(request.MultipartForm.File) == 0 {
-		err := errors.New("no file uploaded. Please send a file")
-		return "", "", err
+		err = errors.New("no file uploaded. Please send a file")
+		return nil, err
 	} else if len(request.MultipartForm.File) != 1 {
-		err := errors.New("multiple files not supported")
-		return "", "", err
+		err = errors.New("multiple files not supported")
+		return nil, err
 	}
 
-	var fileSize, fileName string
-
+	var fileHeader *multipart.FileHeader
 	// Iterate over the files in the map
 	for _, fileHeaders := range request.MultipartForm.File {
 		// Check if only one file is uploaded for each field
 		if len(fileHeaders) != 1 {
-			err := errors.New("multiple files with same name")
-			return "", "", err
+			err = errors.New("multiple files with same name")
+			return nil, err
 		}
 
-		// Access the uploaded file name and size for the single file
-		fileHeader := fileHeaders[0]
-		fileName, fileSize = fileProcessor.GetFileNameAndSize(*fileHeader)
+		fileHeader = fileHeaders[0]
 	}
-
-	return fileName, fileSize, nil
+	return fileHeader, err
 }
