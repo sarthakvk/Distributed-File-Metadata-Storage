@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"net/http"
 
-	keystore_adapters "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
-	"github.com/sarthakvk/hex-app/adapters/logging"
+	keystore_adapters "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
+	"github.com/sarthakvk/gofilemeta/adapters/logging"
 )
 
 var (

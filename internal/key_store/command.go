@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
+	ks_adapter "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
 )
 
 // GetCommand: creates an Command object from raw byte data

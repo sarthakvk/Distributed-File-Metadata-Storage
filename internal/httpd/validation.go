@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	key_store "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
+	key_store "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
 )
 
 func ValidateKeyStoreCommand(request *http.Request) (*key_store.Command, error) {

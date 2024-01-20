@@ -4,9 +4,9 @@ import (
 	"errors"
 	"sync"
 
-	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
-	"github.com/sarthakvk/hex-app/adapters/logging"
-	raft "github.com/sarthakvk/hex-app/adapters/raft_adapter"
+	ks_adapter "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
+	"github.com/sarthakvk/gofilemeta/adapters/logging"
+	raft "github.com/sarthakvk/gofilemeta/adapters/raft_adapter"
 )
 
 var (

@@ -5,7 +5,7 @@ import (
 	"io"
 
 	raft_lib "github.com/hashicorp/raft"
-	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
+	ks_adapter "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
 )
 
 // KeyStoreFSM implements the raft.FSM interface for the KeyStore

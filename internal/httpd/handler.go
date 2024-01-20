@@ -3,8 +3,8 @@ package httpd
 import (
 	"net/http"
 
-	store "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
-	fh_processor "github.com/sarthakvk/hex-app/internal/file_processing"
+	store "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
+	fh_processor "github.com/sarthakvk/gofilemeta/internal/file_processing"
 )
 
 // Handler for the File upload

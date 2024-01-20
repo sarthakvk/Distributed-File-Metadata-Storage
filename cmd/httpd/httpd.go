@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 
-	redis "github.com/sarthakvk/hex-app/adapters/redis"
-	"github.com/sarthakvk/hex-app/internal/httpd"
-	keystore "github.com/sarthakvk/hex-app/internal/key_store"
+	redis "github.com/sarthakvk/gofilemeta/adapters/redis"
+	"github.com/sarthakvk/gofilemeta/internal/httpd"
+	keystore "github.com/sarthakvk/gofilemeta/internal/key_store"
 )
 
 var (

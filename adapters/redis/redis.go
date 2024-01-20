@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/sarthakvk/hex-app/adapters/logging"
+	"github.com/sarthakvk/gofilemeta/adapters/logging"
 )
 
 var logger = logging.GetLogger()

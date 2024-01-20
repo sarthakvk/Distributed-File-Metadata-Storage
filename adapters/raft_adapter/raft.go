@@ -5,7 +5,7 @@ import (
 
 	raft_lib "github.com/hashicorp/raft"
 
-	"github.com/sarthakvk/hex-app/adapters/logging"
+	"github.com/sarthakvk/gofilemeta/adapters/logging"
 )
 
 const (

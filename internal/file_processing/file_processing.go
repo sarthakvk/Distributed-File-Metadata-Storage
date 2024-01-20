@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"mime/multipart"
 
-	ks_adapter "github.com/sarthakvk/hex-app/adapters/keystore_adapter"
+	ks_adapter "github.com/sarthakvk/gofilemeta/adapters/keystore_adapter"
 )
 
 // FileHeaderProcessor: It's an implementation to process file
