@@ -80,20 +80,20 @@ The source code is meticulously self-documented with insightful comments, ensuri
 
 - **Examples:**
   1. **SET:**
-     - **Request:**
-          ```bash
-          curl --location 'localhost:9000/key-store' \
-          --header 'Content-Type: application/json' \
-          --data '{
-              "command": "SET",
-              "key": "FOO",
-              "value": "BAR"
-          }'
-          ```
-      - **Response:**
-          ```json
-          {"created":true}
-          ```
+    - **Request:**
+        ```bash
+        curl --location 'localhost:9000/key-store' \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "command": "SET",
+            "key": "FOO",
+            "value": "BAR"
+        }'
+        ```
+    - **Response:**
+        ```json
+        {"created":true}
+        ```
   2. **DELETE:**
       ```bash
       curl --location 'localhost:9000/key-store' \
@@ -103,7 +103,7 @@ The source code is meticulously self-documented with insightful comments, ensuri
           "key": "FOO"
       }'
       ```
- 1. **GET_OR_CREATE:**
+  3. **GET_OR_CREATE:**
     - **Request:**
       ```bash
       curl --location 'localhost:9000/key-store' \
@@ -114,7 +114,7 @@ The source code is meticulously self-documented with insightful comments, ensuri
           "value": "FOO"
       }'
       ```
-     - **Response:**
+    - **Response:**
       ```json
       {"value":"BAR"}
       ```
