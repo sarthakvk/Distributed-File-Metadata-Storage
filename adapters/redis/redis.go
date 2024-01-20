@@ -17,9 +17,9 @@ type RedisBackend struct {
 }
 
 // Creates a new redis backend
-func NewRedisBackend() *RedisBackend {
+func NewRedisBackend(address string) *RedisBackend {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     address,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
