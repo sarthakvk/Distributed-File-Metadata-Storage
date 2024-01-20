@@ -80,41 +80,42 @@ The source code is meticulously self-documented with insightful comments, ensuri
 
 - **Examples:**
   1. **SET:**
-    - **Request:**
-        ```bash
-        curl --location 'localhost:9000/key-store' \
-        --header 'Content-Type: application/json' \
-        --data '{
-            "command": "SET",
-            "key": "FOO",
-            "value": "BAR"
-        }'
-        ```
-    - **Response:**
-        ```json
-        {"created":true}
-        ```
+       - **Request:**
+           ```bash
+           curl --location 'localhost:9000/key-store' \
+           --header 'Content-Type: application/json' \
+           --data '{
+               "command": "SET",
+               "key": "FOO",
+               "value": "BAR"
+           }'
+           ```
+      - **Response:**
+          ```json
+          {"created":true}
+          ```
   2. **DELETE:**
-      ```bash
-      curl --location 'localhost:9000/key-store' \
-      --header 'Content-Type: application/json' \
-      --data '{
-          "command": "DELETE",
-          "key": "FOO"
-      }'
-      ```
+        - **Request:**
+            ```bash
+            curl --location 'localhost:9000/key-store' \
+            --header 'Content-Type: application/json' \
+            --data '{
+                "command": "DELETE",
+                "key": "FOO"
+            }'
+            ```
   3. **GET_OR_CREATE:**
-    - **Request:**
-      ```bash
-      curl --location 'localhost:9000/key-store' \
-      --header 'Content-Type: application/json' \
-      --data '{
-          "command": "GET_OR_CREATE",
-          "key": "FOO",
-          "value": "FOO"
-      }'
-      ```
-    - **Response:**
-      ```json
-      {"value":"BAR"}
-      ```
+       - **Request:**
+         ```bash
+         curl --location 'localhost:9000/key-store' \
+         --header 'Content-Type: application/json' \
+         --data '{
+             "command": "GET_OR_CREATE",
+             "key": "FOO",
+             "value": "FOO"
+         }'
+         ```
+      - **Response:**
+        ```json
+        {"value":"BAR"}
+        ```
